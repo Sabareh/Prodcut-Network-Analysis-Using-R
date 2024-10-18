@@ -70,12 +70,12 @@ Alternatively, open the `app.R` file and click "Run App" in RStudio.
 ### **2. Analyze Product Pairs**
 - Go to the "Product Pairs" tab.
 - View a table displaying frequently purchased product pairs and their support counts.
-![Product Analysis Demo](product_pairs/home.png)
+![Product Analysis Demo](images/product_pairs/home.png)
 
 ### **3. Community Detection**
 - Go to the "Community Detection" tab.
 - See a graph visualization of product clusters, using community detection algorithms to find relationships between items.
-![Product Analysis Demo](community_detection/home.png)
+![Product Analysis Demo](images/community_detection/home.png)
 
 ## **Project Structure**
 
