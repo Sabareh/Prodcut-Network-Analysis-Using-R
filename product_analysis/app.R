@@ -1,4 +1,3 @@
-#
 # This is a Shiny web application. You can run the application by clicking
 # the 'Run App' button above.
 #
@@ -6,11 +5,11 @@
 #
 #    https://shiny.posit.co/
 
-
 library(shiny)
 library(arules)
 library(igraph, quietly = TRUE)
 library(tidyr)
+library(visNetwork)
 
 server <- function(input, output) {
   # Reactive for transaction object
@@ -75,15 +74,27 @@ server <- function(input, output) {
   # Render data table for product pairs
   output$ppairs <- renderDataTable({ network.data() })
   
-  # Render community detection plot
-  output$community <- renderPlot({
+  # Render community detection plot using visNetwork
+  output$community <- renderVisNetwork({
     network.data <- network.data()
     if (is.null(network.data)) return(NULL)
     
     my.graph <- graph_from_data_frame(network.data)
     random.cluster <- walktrap.community(my.graph)
-    plot(random.cluster, my.graph, layout = layout.fruchterman.reingold, 
-         vertex.label.cex = 5, edge.arrow.size = .1, height = 1200, width = 1200)
+    
+    # Convert to visNetwork format
+    nodes <- data.frame(id = V(my.graph)$name, label = V(my.graph)$name, group = random.cluster$membership)
+    edges <- data.frame(from = as.character(as.vector(get.edgelist(my.graph)[,1])),
+                        to = as.character(as.vector(get.edgelist(my.graph)[,2])),
+                        weight = E(my.graph)$weight)
+    
+    # Create the visNetwork plot
+    visNetwork(nodes, edges) %>%
+      visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE) %>%
+      visLayout(randomSeed = 123) %>%
+      visEdges(arrows = 'to') %>%
+      visNodes(size = 20, font = list(size = 20)) %>%
+      visLegend(useGroups = TRUE)
   })
 }
 
@@ -101,7 +112,7 @@ ui <- fluidPage(
                       dataTableOutput("ppairs")
              ),
              tabPanel('Community Detection',
-                      plotOutput("community")
+                      visNetworkOutput("community", height = "800px")  # Use visNetwork output
              )
   )
 )
