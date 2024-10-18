@@ -80,7 +80,6 @@ Alternatively, open the `app.R` file and click "Run App" in RStudio.
 .
 ├── app.R                # Main Shiny app code
 ├── README.md            # Project documentation
-└── data/                # Sample data files (optional)
 ```
 
 ## **Customization**
