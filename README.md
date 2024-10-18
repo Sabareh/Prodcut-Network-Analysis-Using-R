@@ -1,5 +1,11 @@
 # **Product Network Analysis Using R and Shiny**
 
+## Demo
+
+Here's a preview of the **Product Network Analysis** app in action:
+
+![Product Analysis Demo](images/demo.png)
+
 ## **Overview**
 
 This Shiny web application analyzes product transactions to discover frequently purchased product pairs and visualize the relationships between them. The app uses association rule mining (Apriori algorithm) to identify frequent itemsets, and it applies community detection to find clusters of related products.
