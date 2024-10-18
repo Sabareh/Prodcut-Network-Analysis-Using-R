@@ -65,14 +65,17 @@ Alternatively, open the `app.R` file and click "Run App" in RStudio.
 ### **1. Upload Transaction Data**
 - Go to the "Transactions" tab.
 - Upload a CSV file that contains transactional data (`order_id`, `product_id`).
+![Product Analysis Demo](images/transactions.png)
 
 ### **2. Analyze Product Pairs**
 - Go to the "Product Pairs" tab.
 - View a table displaying frequently purchased product pairs and their support counts.
+![Product Analysis Demo](product_pairs/home.png)
 
 ### **3. Community Detection**
 - Go to the "Community Detection" tab.
 - See a graph visualization of product clusters, using community detection algorithms to find relationships between items.
+![Product Analysis Demo](community_detection/home.png)
 
 ## **Project Structure**
 
