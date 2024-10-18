@@ -4,7 +4,7 @@
 
 Here's a preview of the **Product Network Analysis** app in action:
 
-![Product Analysis Demo](images/demo.png)
+![Product Analysis Demo](images/home.png)
 
 ## **Overview**
 
