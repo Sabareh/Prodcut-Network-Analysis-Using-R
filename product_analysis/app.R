@@ -10,7 +10,7 @@
 
 library(shiny)
 library(arules)
-library(igraph)
+library(igraph, quietly = TRUE)
 library(tidyr)
 
 server <- function(input, output) {
@@ -20,7 +20,7 @@ server <- function(input, output) {
     if (is.null(data)) {
       return(NULL)
     }
-    transactions.obj <- read.transactions(file = data$datapath, format = "single", sep = ",", cols = c("order_id", "product_id"))
+    transactions.obj <- read.transactions(file = data$datapath, format = "single", sep = ",", cols = c(1, 2))
     return(transactions.obj)
   })
   
