@@ -37,11 +37,9 @@ server <- function(input, output) {
   # Reactive for network data
   network.data <- reactive({
     transactions.obj <- trans.obj()
-    if (is.null(transactions.obj)) {
-      return(NULL)
-    }
     
     support <- 0.015
+    
     parameters <- list(
       support = support, 
       confidence = 0.5, 
@@ -52,21 +50,23 @@ server <- function(input, output) {
     
     freq.items <- apriori(transactions.obj, parameter = parameters)
     
-    freq.items.df <- data.frame(
-      item_set = labels(freq.items),
-      support = freq.items@quality
-    )
+    # Check if freq.items has content
+    if (length(freq.items) == 0) {
+      return(NULL)  # Return NULL if no itemsets are found
+    }
     
-    freq.items.df$item_set <- as.character(freq.items.df$item_set)
+    freq.items.df <- data.frame(item_set = labels(freq.items),
+                                support = quality(freq.items)$support)
     
     # Clean up for item pairs
-    freq.items.df <- separate(freq.items.df, item_set, col = item_set, into = c("item1", "item2"), sep = ",")
+    freq.items.df <- separate(freq.items.df, item_set, into = c("item1", "item2"), sep = ",")
     freq.items.df[] <- lapply(freq.items.df, gsub, pattern = "\\{", replacement = "")
     freq.items.df[] <- lapply(freq.items.df, gsub, pattern = "\\}", replacement = "")
     
     # Prepare data for graph
-    network.data <- freq.items.df[, c("item1", "item2", "support.count")]
+    network.data <- freq.items.df[, c("item1", "item2", "support")]
     names(network.data) <- c("from", "to", "weight")
+    
     return(network.data)
   })
   
