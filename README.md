@@ -44,7 +44,7 @@ The app expects a CSV file with the following columns:
 ### **1. Clone the Repository**
 
 ```bash
-git clone https://github.com/your-repository-link.git
+git clone https://github.com/https://github.com/Sabareh/Product-Network-Analysis-Using-R.git
 ```
 
 ### **2. Open the Project in RStudio**
@@ -55,7 +55,7 @@ You can run the application using the `runApp()` function:
 
 ```r
 library(shiny)
-runApp('path_to_your_project_folder')
+runApp('product_analysis/app.R')
 ```
 
 Alternatively, open the `app.R` file and click "Run App" in RStudio.
